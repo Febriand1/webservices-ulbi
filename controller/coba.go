@@ -38,7 +38,7 @@ func GetMatakuliah(c *fiber.Ctx) error {
 }
 
 func GetGrade(c *fiber.Ctx) error {
-	nl := inimodul.GetGradeFromMahasiswa(121395, config.Ulbimongoconn, "grade")
+	nl := inimodul.GetGradeFromMahasiswa(121395, config.Ulbimongoconn, "nilai")
 	return c.JSON(nl)
 }
 
