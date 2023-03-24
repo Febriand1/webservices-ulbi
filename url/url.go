@@ -12,4 +12,8 @@ func Web(page *fiber.App) {
 	page.Get("/ws/whatsauth/qr", websocket.New(controller.WsWhatsAuthQR)) //websocket whatsauth
 	page.Get("/", controller.Homepage)                                    //ujicoba panggil package musik
 	page.Get("/presensi", controller.GetPresensi)
+	page.Get("/test", controller.GetAll)
+	page.Post("/nilai", controller.InsertData)
+	page.Post("/mahasiswa", controller.InsertIdentitas)
+	page.Post("/matakuliah", controller.InsertMatkul)
 }

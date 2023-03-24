@@ -1,10 +1,13 @@
 package controller
 
 import (
+	inimodel "github.com/Febriand1/Nilai/Model"
+	inimodul "github.com/Febriand1/Nilai/Module"
 	"github.com/Febriand1/webservices-ulbi/config"
 	"github.com/aiteung/musik"
 	cek "github.com/aiteung/presensi"
 	"github.com/gofiber/fiber/v2"
+	"net/http"
 )
 
 func Home(c *fiber.Ctx) error {
@@ -23,4 +26,64 @@ func Homepage(c *fiber.Ctx) error {
 func GetPresensi(c *fiber.Ctx) error {
 	nl := cek.GetPresensiCurrentMonth(config.Ulbimongoconn)
 	return c.JSON(nl)
+}
+
+func GetAll(c *fiber.Ctx) error {
+	nl := inimodul.GetAllNilaiFromNamaMahasiswa("budiman", config.Ulbimongoconn, "nilai")
+	return c.JSON(nl)
+}
+
+func InsertData(c *fiber.Ctx) error {
+	db := config.Ulbimongoconn
+	var nilai inimodel.Nilai
+	if err := c.BodyParser(&nilai); err != nil {
+		return err
+	}
+	insertedID := inimodul.InsertNilai(db, "nilai",
+		nilai.All_Tugas,
+		nilai.UTS,
+		nilai.UAS,
+		nilai.Grade,
+		nilai.Kategori,
+		nilai.Biodata)
+	return c.JSON(map[string]interface{}{
+		"status":      http.StatusOK,
+		"message":     "Data berhasil disimpan.",
+		"inserted_id": insertedID,
+	})
+}
+
+func InsertIdentitas(c *fiber.Ctx) error {
+	db := config.Ulbimongoconn
+	var mahasiswa inimodel.Mahasiswa
+	if err := c.BodyParser(&mahasiswa); err != nil {
+		return err
+	}
+	insertedID := inimodul.InsertMahasiswa(db, "mahasiswa",
+		mahasiswa.Nama,
+		mahasiswa.NPM,
+		mahasiswa.Phone_Number)
+	return c.JSON(map[string]interface{}{
+		"status":      http.StatusOK,
+		"message":     "Identitas berhasil disimpan.",
+		"inserted_id": insertedID,
+	})
+}
+
+func InsertMatkul(c *fiber.Ctx) error {
+	db := config.Ulbimongoconn
+	var matakuliah inimodel.Matakuliah
+	if err := c.BodyParser(&matakuliah); err != nil {
+		return err
+	}
+	insertedID := inimodul.InsertMatakuliah(db, "matakuliah",
+		matakuliah.Nama_MK,
+		matakuliah.SKS,
+		matakuliah.Jadwal,
+		matakuliah.Pengampu)
+	return c.JSON(map[string]interface{}{
+		"status":      http.StatusOK,
+		"message":     "Matkul berhasil disimpan.",
+		"inserted_id": insertedID,
+	})
 }
