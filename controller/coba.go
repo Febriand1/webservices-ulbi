@@ -23,8 +23,23 @@ func Homepage(c *fiber.Ctx) error {
 	return c.JSON(ipaddr)
 }
 
-func GetPresensi(c *fiber.Ctx) error {
+func GetPresensiold(c *fiber.Ctx) error {
 	nl := cek.GetPresensiCurrentMonth(config.Ulbimongoconn)
+	return c.JSON(nl)
+}
+
+func GetPresensi(c *fiber.Ctx) error {
+	nl := inimodul.GetPresensiFromMahasiswa("budiman", config.Ulbimongoconn, "presensi")
+	return c.JSON(nl)
+}
+
+func GetMatakuliah(c *fiber.Ctx) error {
+	nl := inimodul.GetMatakuliahFromJadwal("07.00", config.Ulbimongoconn, "matakuliah")
+	return c.JSON(nl)
+}
+
+func GetGrade(c *fiber.Ctx) error {
+	nl := inimodul.GetGradeFromMahasiswa(121395, config.Ulbimongoconn, "grade")
 	return c.JSON(nl)
 }
 
@@ -84,6 +99,23 @@ func InsertMatkul(c *fiber.Ctx) error {
 	return c.JSON(map[string]interface{}{
 		"status":      http.StatusOK,
 		"message":     "Matkul berhasil disimpan.",
+		"inserted_id": insertedID,
+	})
+}
+
+func InsertDosen(c *fiber.Ctx) error {
+	db := config.Ulbimongoconn
+	var dosen inimodel.Dosen
+	if err := c.BodyParser(&dosen); err != nil {
+		return err
+	}
+	insertedID := inimodul.InsertDosen(db, "dosen",
+		dosen.Nama_Dosen,
+		dosen.NIK,
+		dosen.Phone_NumberD)
+	return c.JSON(map[string]interface{}{
+		"status":      http.StatusOK,
+		"message":     "Dosen berhasil disimpan.",
 		"inserted_id": insertedID,
 	})
 }
