@@ -4,7 +4,6 @@ import (
 	inimodel "github.com/Febriand1/Nilai/Model"
 	inimodul "github.com/Febriand1/Nilai/Module"
 	"github.com/Febriand1/webservices-ulbi/config"
-	"github.com/aiteung/musik"
 	cek "github.com/aiteung/presensi"
 	"github.com/gofiber/fiber/v2"
 	"net/http"
@@ -18,10 +17,10 @@ func Home(c *fiber.Ctx) error {
 	})
 }
 
-func Homepage(c *fiber.Ctx) error {
-	ipaddr := musik.GetIPaddress()
-	return c.JSON(ipaddr)
-}
+//func Homepage(c *fiber.Ctx) error {
+//	ipaddr := musik.GetIPaddress()
+//	return c.JSON(ipaddr)
+//}
 
 func GetPresensiold(c *fiber.Ctx) error {
 	nl := cek.GetPresensiCurrentMonth(config.Ulbimongoconn)
