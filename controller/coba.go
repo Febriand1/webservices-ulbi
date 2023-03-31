@@ -55,6 +55,11 @@ func GetPresensiID(c *fiber.Ctx) error {
 }
 
 
+func GetAllNilai(c *fiber.Ctx) error {
+	ps := inimodul.GetAllNilai(config.Ulbimongoconn, "nilai")
+	return c.JSON(ps)
+}
+
 
 
 //latihan kemaren
@@ -109,7 +114,7 @@ func InsertData(c *fiber.Ctx) error {
 		nilai.UAS,
 		nilai.Grade,
 		nilai.Kategori,
-		nilai.Biodata)
+		nilai.Absensi)
 	return c.JSON(map[string]interface{}{
 		"status":      http.StatusOK,
 		"message":     "Data berhasil disimpan.",
