@@ -20,4 +20,9 @@ func Web(page *fiber.App) {
 	page.Post("/insmahasiswa", controller.InsertIdentitas)
 	page.Post("/insmatakuliah", controller.InsertMatkul)
 	page.Post("/insdosen", controller.InsertDosen)
+
+
+	//sekarang
+	page.Get("/presensinew", controller.GetAllPresensi) //menampilkan seluruh data presensi
+	page.Get("/presensinew/:id", controller.GetPresensiID) //menampilkan data presensi berdasarkan id
 }

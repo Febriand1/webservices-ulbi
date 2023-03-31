@@ -16,13 +16,22 @@ var origins = []string{
 	"https://dias.ulbi.ac.id",
 	"https://iteung.ulbi.ac.id",
 	"https://whatsauth.github.io",
+	"https://febriand1.github.io",
 }
 
 var Internalhost string = os.Getenv("INTERNALHOST") + ":" + os.Getenv("PORT")
 
+// var Cors = cors.Config{
+// 	AllowOrigins:     strings.Join(origins[:], ","),
+// 	AllowHeaders:     "Origin",
+// 	ExposeHeaders:    "Content-Length",
+// 	AllowCredentials: true,
+// }
+
 var Cors = cors.Config{
 	AllowOrigins:     strings.Join(origins[:], ","),
-	AllowHeaders:     "Origin",
+	AllowMethods:     "GET,HEAD,OPTIONS,POST,PUT",
+	AllowHeaders:     "Origin, X-Requested-With, Content-Type, Accept, Authorization",
 	ExposeHeaders:    "Content-Length",
 	AllowCredentials: true,
 }
