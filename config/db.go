@@ -32,7 +32,7 @@ var Ulbimariaconn = atdb.MariaConnect(DBUlbimariainfo)
 
 var Ulbimongoconn = atdb.MongoConnect(DBUlbimongoinfo)
 
-var Ulbimongoconn1 = atdb.MongoConnect(DBUlbimongoinfo)
+var Ulbimongoconn1 = atdb.MongoConnect(DBUlbimongoinfo1)
 
 var Usertables = [4]whatsauth.LoginInfo{mhs, dosen, user, user1}
 
