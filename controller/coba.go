@@ -61,7 +61,6 @@ func GetAllNilai(c *fiber.Ctx) error {
 }
 
 
-
 //latihan kemaren
 
 func Home(c *fiber.Ctx) error {
