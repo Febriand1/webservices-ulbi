@@ -181,7 +181,7 @@ func InsertDosen(c *fiber.Ctx) error {
 //insert data
 
 func InsertData1(c *fiber.Ctx) error {
-	db := config.Ulbimongoconn
+	db := config.Ulbimongoconn1
 	var presensi inimodellatihan.Presensi
 	if err := c.BodyParser(&presensi); err != nil {
 		return c.Status(http.StatusInternalServerError).JSON(fiber.Map{
