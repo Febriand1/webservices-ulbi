@@ -12,6 +12,8 @@ func Web(page *fiber.App) {
 	page.Get("/ws/whatsauth/qr", websocket.New(controller.WsWhatsAuthQR)) //websocket whatsauth
 	page.Get("/", controller.Home)                                        //ujicoba panggil package musik
 	page.Get("/presensiold", controller.GetPresensiold)
+
+	//nilai
 	page.Get("/presensi", controller.GetPresensi)
 	page.Get("/matakuliah", controller.GetMatakuliah)
 	page.Get("/grade", controller.GetGrade)
@@ -24,14 +26,15 @@ func Web(page *fiber.App) {
 	page.Get("/nilai", controller.GetAllNilai)
 
 
-	//sekarang
+	//sekarang presensi
 	page.Get("/presensinew", controller.GetAllPresensi) //menampilkan seluruh data presensi
 	page.Get("/presensinew/:id", controller.GetPresensiID) //menampilkan data presensi berdasarkan id
-
-	
-	//insert data
+	//insert data presensi
 	page.Post("/ins", controller.InsertData1)
-
+	//edit data presensi
+	page.Put("/upd/:id", controller.UpdateData)
+	//delete data presensi
+	page.Delete("/delete/:id", controller.DeletePresensiByID)
 }
 
 
