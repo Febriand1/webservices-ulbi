@@ -210,7 +210,7 @@ func InsertData1(c *fiber.Ctx) error {
 }
 
 func UpdateData(c *fiber.Ctx) error {
-	db := config.Ulbimongoconn
+	db := config.Ulbimongoconn1
 
 	// Get the ID from the URL parameter
 	id := c.Params("id")
@@ -272,7 +272,7 @@ func DeletePresensiByID(c *fiber.Ctx) error {
 		})
 	}
 
-	err = inimodullatihan.DeletePresensiByID(objID, config.Ulbimongoconn, "presensi")
+	err = inimodullatihan.DeletePresensiByID(objID, config.Ulbimongoconn1, "presensi")
 	if err != nil {
 		return c.Status(http.StatusInternalServerError).JSON(fiber.Map{
 			"status":  http.StatusInternalServerError,
