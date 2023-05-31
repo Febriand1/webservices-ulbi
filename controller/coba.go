@@ -17,8 +17,6 @@ import (
 	inimodullatihan "github.com/indrariksa/be_presensi/module"
 )
 
-//sekarang
-
 // GetAllPresensi godoc
 // @Summary Get All Data Presensi.
 // @Description Mengambil semua data presensi.
@@ -27,7 +25,6 @@ import (
 // @Produce json
 // @Success 200 {object} Presensi
 // @Router /presensi [get]
-
 func GetAllPresensi(c *fiber.Ctx) error {
 	ps := inimodullatihan.GetAllPresensi(config.Ulbimongoconn1, "presensi")
 	return c.JSON(ps)

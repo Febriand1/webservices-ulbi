@@ -29,7 +29,7 @@ type Presensi struct {
 	Latitude     float64            `bson:"latitude,omitempty" json:"latitude,omitempty"`
 	Location     string             `bson:"location,omitempty" json:"location,omitempty"`
 	Phone_number string             `bson:"phone_number,omitempty" json:"phone_number,omitempty"`
-	Datetime     primitive.DateTime `bson:"datetime,omitempty" json:"datetime,omitempty"`
+	// Datetime     primitive.DateTime `bson:"datetime,omitempty" json:"datetime,omitempty"`
 	Checkin      string             `bson:"checkin,omitempty" json:"checkin,omitempty"`
 	Biodata      Karyawan           `bson:"biodata,omitempty" json:"biodata,omitempty"`
 }
