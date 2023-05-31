@@ -4,6 +4,7 @@ import (
 	"github.com/Febriand1/webservices-ulbi/controller"
 
 	"github.com/gofiber/fiber/v2"
+	"github.com/gofiber/swagger"
 	"github.com/gofiber/websocket/v2"
 )
 
@@ -35,6 +36,9 @@ func Web(page *fiber.App) {
 	page.Put("/upd/:id", controller.UpdateData)
 	//delete data presensi
 	page.Delete("/delete/:id", controller.DeletePresensiByID)
+
+	//swagger
+	page.Get("/docs/*", swagger.HandlerDefault)
 }
 
 
