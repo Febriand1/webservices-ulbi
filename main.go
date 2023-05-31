@@ -13,6 +13,10 @@ import (
 	"github.com/Febriand1/webservices-ulbi/url"
 
 	"github.com/gofiber/fiber/v2"
+
+	// "github.com/gofiber/swagger"
+
+	_ "github.com/Febriand1/webservices-ulbi/docs"
 )
 
 // @title Fiber Example API
