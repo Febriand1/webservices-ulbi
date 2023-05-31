@@ -1,15 +1,15 @@
 basePath: /
-host: localhost:8080
+host: ws-nilai.herokuapp.com
 info:
   contact:
-    email: fiber@swagger.io
+    email: 1214039@std.ulbi.ac.id
     name: API Support
-  description: This is a sample swagger for Fiber
-  license:
-    name: Apache 2.0
-    url: http://www.apache.org/licenses/LICENSE-2.0.html
-  termsOfService: http://swagger.io/terms/
-  title: Fiber Example API
+    url: https://github.com/Febriand1
+  description: This is a sample server.
+  title: TES  SWAG
   version: "1.0"
 paths: {}
+schemes:
+- https
+- http
 swagger: "2.0"
