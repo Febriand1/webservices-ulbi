@@ -227,7 +227,7 @@ func InsertDataNilai(c *fiber.Ctx) error {
 }
 
 func UpdateDataNilai(c *fiber.Ctx) error {
-	db := config.Ulbimongoconn1
+	db := config.Ulbimongoconn
 
 	// Get the ID from the URL parameter
 	id := c.Params("id")
@@ -289,7 +289,7 @@ func DeleteNilaiID(c *fiber.Ctx) error {
 		})
 	}
 
-	err = inimodul.DeleteNilaiByID(objID, config.Ulbimongoconn1, "nilai")
+	err = inimodul.DeleteNilaiByID(objID, config.Ulbimongoconn, "nilai")
 	if err != nil {
 		return c.Status(http.StatusInternalServerError).JSON(fiber.Map{
 			"status":  http.StatusInternalServerError,
