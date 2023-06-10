@@ -206,7 +206,7 @@ func GetNilaiID(c *fiber.Ctx) error {
 	return c.JSON(nl)
 }
 
-func InsertData(c *fiber.Ctx) error {
+func InsertDataNilai(c *fiber.Ctx) error {
 	db := config.Ulbimongoconn
 	var nilai inimodel.Nilai
 	if err := c.BodyParser(&nilai); err != nil {

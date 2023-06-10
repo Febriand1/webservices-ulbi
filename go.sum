@@ -8,8 +8,8 @@ github.com/Azure/azure-sdk-for-go/sdk/azidentity v1.1.0/go.mod h1:bhXu1AjYL+wutS
 github.com/Azure/azure-sdk-for-go/sdk/internal v1.0.0/go.mod h1:eWRD7oawr1Mu1sLCawqVc0CUiF43ia3qQMxLscsKQ9w=
 github.com/AzureAD/microsoft-authentication-library-for-go v0.5.1/go.mod h1:Vt9sXTKwMyGcOxSmLDMnGPgqsUg7m8pe215qMLrDXw4=
 github.com/BurntSushi/toml v0.3.1/go.mod h1:xHWCNGjB5oqiDr8zfno3MHue2Ht5sIBksp03qcyfWMU=
-github.com/Febriand1/Nilai v0.0.9 h1:gBdboNlnG5G94mZM3BWsoGF2VFZKCmpO9vzn+DuVHcI=
-github.com/Febriand1/Nilai v0.0.9/go.mod h1:5Mnz4mIF5KlCfE1TWFjBo3cWXBB5vsQeItBfxU7MbNs=
+github.com/Febriand1/Nilai v0.0.10 h1:W7K0LsFe0BAmc7YadyiQyJHC6jVjvfGxJsOehNyK0qE=
+github.com/Febriand1/Nilai v0.0.10/go.mod h1:5Mnz4mIF5KlCfE1TWFjBo3cWXBB5vsQeItBfxU7MbNs=
 github.com/KyleBanks/depth v1.2.1 h1:5h8fQADFrWtarTdtDudMmGsC7GPbOAu6RVB3ffsVFHc=
 github.com/KyleBanks/depth v1.2.1/go.mod h1:jzSb9d0L43HxTQfT+oSA1EEp2q+ne2uh6XgeJcm8brE=
 github.com/PuerkitoBio/purell v1.1.1/go.mod h1:c11w/QuzBsJSee3cPx9rAFu61PvFxuPbtSwDGJws/X0=

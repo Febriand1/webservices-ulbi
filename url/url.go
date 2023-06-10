@@ -27,8 +27,8 @@ func Web(page *fiber.App) {
 	//TB
 	page.Get("/nilai", controller.GetAllNilai)
 	page.Get("/nilai/:id", controller.GetNilaiID)
-	page.Post("/insnilai", controller.InsertData)
-	page.Put("/updnilai/:id", controller.DeleteNilaiID)
+	page.Post("/insnilai", controller.InsertDataNilai)
+	page.Put("/updnilai/:id", controller.UpdateDataNilai)
 	page.Delete("/delnilai/:id", controller.DeleteNilaiID)
 	//TB
 
