@@ -206,20 +206,49 @@ func GetNilaiID(c *fiber.Ctx) error {
 	return c.JSON(nl)
 }
 
+// func InsertDataNilai(c *fiber.Ctx) error {
+// 	db := config.Ulbimongoconn
+// 	var nilai inimodel.Nilai
+// 	if err := c.BodyParser(&nilai); err != nil {
+// 		return err
+// 	}
+// 	insertedID := inimodul.InsertNilai(db, "nilai",
+// 		nilai.All_Tugas,
+// 		nilai.UTS,
+// 		nilai.UAS,
+// 		nilai.Grade,
+// 		nilai.Kategori,
+// 		nilai.Absensi)
+// 	return c.JSON(map[string]interface{}{
+// 		"status":      http.StatusOK,
+// 		"message":     "Data berhasil disimpan.",
+// 		"inserted_id": insertedID,
+// 	})
+// }
+
 func InsertDataNilai(c *fiber.Ctx) error {
 	db := config.Ulbimongoconn
 	var nilai inimodel.Nilai
 	if err := c.BodyParser(&nilai); err != nil {
-		return err
+		return c.Status(http.StatusInternalServerError).JSON(fiber.Map{
+			"status":  http.StatusInternalServerError,
+			"message": err.Error(),
+		})
 	}
-	insertedID := inimodul.InsertNilai(db, "nilai",
+	insertedID, err := inimodul.InsertNilai(db, "nilai",
 		nilai.All_Tugas,
 		nilai.UTS,
 		nilai.UAS,
 		nilai.Grade,
 		nilai.Kategori,
 		nilai.Absensi)
-	return c.JSON(map[string]interface{}{
+	if err != nil {
+		return c.Status(http.StatusInternalServerError).JSON(fiber.Map{
+			"status":  http.StatusInternalServerError,
+			"message": err.Error(),
+		})
+	}
+	return c.Status(http.StatusOK).JSON(fiber.Map{
 		"status":      http.StatusOK,
 		"message":     "Data berhasil disimpan.",
 		"inserted_id": insertedID,
