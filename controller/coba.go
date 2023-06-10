@@ -75,11 +75,6 @@ func GetPresensiID(c *fiber.Ctx) error {
 }
 
 
-func GetAllNilai(c *fiber.Ctx) error {
-	ps := inimodul.GetAllNilai(config.Ulbimongoconn, "nilai")
-	return c.JSON(ps)
-}
-
 
 //latihan kemaren
 
@@ -101,6 +96,7 @@ func GetPresensiold(c *fiber.Ctx) error {
 	return c.JSON(nl)
 }
 
+//nilai
 func GetPresensi(c *fiber.Ctx) error {
 	nl := inimodul.GetPresensiFromMahasiswa("budiman", config.Ulbimongoconn, "presensi")
 	return c.JSON(nl)
@@ -119,26 +115,6 @@ func GetGrade(c *fiber.Ctx) error {
 func GetAll(c *fiber.Ctx) error {
 	nl := inimodul.GetAllNilaiFromNamaMahasiswa("budiman", config.Ulbimongoconn, "nilai")
 	return c.JSON(nl)
-}
-
-func InsertData(c *fiber.Ctx) error {
-	db := config.Ulbimongoconn
-	var nilai inimodel.Nilai
-	if err := c.BodyParser(&nilai); err != nil {
-		return err
-	}
-	insertedID := inimodul.InsertNilai(db, "nilai",
-		nilai.All_Tugas,
-		nilai.UTS,
-		nilai.UAS,
-		nilai.Grade,
-		nilai.Kategori,
-		nilai.Absensi)
-	return c.JSON(map[string]interface{}{
-		"status":      http.StatusOK,
-		"message":     "Data berhasil disimpan.",
-		"inserted_id": insertedID,
-	})
 }
 
 func InsertIdentitas(c *fiber.Ctx) error {
@@ -193,9 +169,140 @@ func InsertDosen(c *fiber.Ctx) error {
 	})
 }
 
+//TB
+func GetAllNilai(c *fiber.Ctx) error {
+	ps := inimodul.GetAllNilai(config.Ulbimongoconn, "nilai")
+	return c.JSON(ps)
+}
 
+func GetNilaiID(c *fiber.Ctx) error {
+	id := c.Params("id")
+	if id == "" {
+		return c.Status(http.StatusInternalServerError).JSON(fiber.Map{
+			"status":  http.StatusInternalServerError,
+			"message": "Wrong parameter",
+		})
+	}
+	objID, err := primitive.ObjectIDFromHex(id)
+	if err != nil {
+		return c.Status(http.StatusBadRequest).JSON(fiber.Map{
+			"status":  http.StatusBadRequest,
+			"message": "Invalid id parameter",
+		})
+	}
+	nl, err := inimodul.GetNilaiFromID(objID, config.Ulbimongoconn, "nilai")
+	if err != nil {
+		if errors.Is(err, mongo.ErrNoDocuments) {
+			return c.Status(http.StatusNotFound).JSON(fiber.Map{
+				"status":  http.StatusNotFound,
+				"message": fmt.Sprintf("No data found for id %s", id),
+			})
+		}
+		return c.Status(http.StatusInternalServerError).JSON(fiber.Map{
+			"status":  http.StatusInternalServerError,
+			"message": fmt.Sprintf("Error retrieving data for id %s", id),
+		})
+	}
+	return c.JSON(nl)
+}
 
+func InsertData(c *fiber.Ctx) error {
+	db := config.Ulbimongoconn
+	var nilai inimodel.Nilai
+	if err := c.BodyParser(&nilai); err != nil {
+		return err
+	}
+	insertedID := inimodul.InsertNilai(db, "nilai",
+		nilai.All_Tugas,
+		nilai.UTS,
+		nilai.UAS,
+		nilai.Grade,
+		nilai.Kategori,
+		nilai.Absensi)
+	return c.JSON(map[string]interface{}{
+		"status":      http.StatusOK,
+		"message":     "Data berhasil disimpan.",
+		"inserted_id": insertedID,
+	})
+}
 
+func UpdateDataNilai(c *fiber.Ctx) error {
+	db := config.Ulbimongoconn1
+
+	// Get the ID from the URL parameter
+	id := c.Params("id")
+
+	// Parse the ID into an ObjectID
+	objectID, err := primitive.ObjectIDFromHex(id)
+	if err != nil {
+		return c.Status(http.StatusInternalServerError).JSON(fiber.Map{
+			"status":  http.StatusInternalServerError,
+			"message": err.Error(),
+		})
+	}
+
+	// Parse the request body into a nilai object
+	var nilai inimodel.Nilai
+	if err := c.BodyParser(&nilai); err != nil {
+		return c.Status(http.StatusInternalServerError).JSON(fiber.Map{
+			"status":  http.StatusInternalServerError,
+			"message": err.Error(),
+		})
+	}
+
+	// Call the UpdateNilai function with the parsed ID and the Nilai object
+	err = inimodul.UpdateNilai(db, "nilai",
+		objectID,
+		nilai.All_Tugas,
+		nilai.UTS,
+		nilai.UAS,
+		nilai.Grade,
+		nilai.Kategori,
+		nilai.Absensi)
+	if err != nil {
+		return c.Status(http.StatusInternalServerError).JSON(fiber.Map{
+			"status":  http.StatusInternalServerError,
+			"message": err.Error(),
+		})
+	}
+
+	return c.Status(http.StatusOK).JSON(fiber.Map{
+		"status":  http.StatusOK,
+		"message": "Data successfully updated",
+	})
+}
+
+func DeleteNilaiID(c *fiber.Ctx) error {
+	id := c.Params("id")
+	if id == "" {
+		return c.Status(http.StatusInternalServerError).JSON(fiber.Map{
+			"status":  http.StatusInternalServerError,
+			"message": "Wrong parameter",
+		})
+	}
+
+	objID, err := primitive.ObjectIDFromHex(id)
+	if err != nil {
+		return c.Status(http.StatusBadRequest).JSON(fiber.Map{
+			"status":  http.StatusBadRequest,
+			"message": "Invalid id parameter",
+		})
+	}
+
+	err = inimodul.DeleteNilaiByID(objID, config.Ulbimongoconn1, "nilai")
+	if err != nil {
+		return c.Status(http.StatusInternalServerError).JSON(fiber.Map{
+			"status":  http.StatusInternalServerError,
+			"message": fmt.Sprintf("Error deleting data for id %s", id),
+		})
+	}
+
+	return c.Status(http.StatusOK).JSON(fiber.Map{
+		"status":  http.StatusOK,
+		"message": fmt.Sprintf("Data with id %s deleted successfully", id),
+	})
+}
+//TB
 
 // InsertData godoc
 // @Summary Insert data presensi.

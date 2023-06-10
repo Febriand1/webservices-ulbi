@@ -19,13 +19,18 @@ func Web(page *fiber.App) {
 	page.Get("/matakuliah", controller.GetMatakuliah)
 	page.Get("/grade", controller.GetGrade)
 	page.Get("/test", controller.GetAll)
-	page.Post("/insnilai", controller.InsertData)
+
 	page.Post("/insmahasiswa", controller.InsertIdentitas)
 	page.Post("/insmatakuliah", controller.InsertMatkul)
 	page.Post("/insdosen", controller.InsertDosen)
 
+	//TB
 	page.Get("/nilai", controller.GetAllNilai)
-
+	page.Get("/nilai/:id", controller.GetNilaiID)
+	page.Post("/insnilai", controller.InsertData)
+	page.Put("/updnilai/:id", controller.DeleteNilaiID)
+	page.Delete("/delnilai/:id", controller.DeleteNilaiID)
+	//TB
 
 	//sekarang presensi
 	page.Get("/presensinew", controller.GetAllPresensi) //menampilkan seluruh data presensi
