@@ -333,6 +333,120 @@ func DeleteNilaiID(c *fiber.Ctx) error {
 }
 //TB
 
+//login
+func InsertLoginAdmin(c *fiber.Ctx) error {
+	db := config.Ulbimongoconn
+	var admin inimodel.Admin
+	if err := c.BodyParser(&admin); err != nil {
+		return c.Status(http.StatusInternalServerError).JSON(fiber.Map{
+			"status":  http.StatusInternalServerError,
+			"message": err.Error(),
+		})
+	}
+	insertedID, err := inimodul.InsertAdmin(db, "admin",
+		admin.Username,
+		admin.Password)
+	if err != nil {
+		return c.Status(http.StatusInternalServerError).JSON(fiber.Map{
+			"status":  http.StatusInternalServerError,
+			"message": err.Error(),
+		})
+	}
+	return c.Status(http.StatusOK).JSON(fiber.Map{
+		"status":      http.StatusOK,
+		"message":     "Data berhasil disimpan.",
+		"inserted_id": insertedID,
+	})
+}
+
+func GetAdminID(c *fiber.Ctx) error {
+	id := c.Params("id")
+	if id == "" {
+		return c.Status(http.StatusInternalServerError).JSON(fiber.Map{
+			"status":  http.StatusInternalServerError,
+			"message": "Wrong parameter",
+		})
+	}
+	objID, err := primitive.ObjectIDFromHex(id)
+	if err != nil {
+		return c.Status(http.StatusBadRequest).JSON(fiber.Map{
+			"status":  http.StatusBadRequest,
+			"message": "Invalid id parameter",
+		})
+	}
+	nl, err := inimodul.GetAdminFromID(objID, config.Ulbimongoconn, "admin")
+	if err != nil {
+		if errors.Is(err, mongo.ErrNoDocuments) {
+			return c.Status(http.StatusNotFound).JSON(fiber.Map{
+				"status":  http.StatusNotFound,
+				"message": fmt.Sprintf("No data found for id %s", id),
+			})
+		}
+		return c.Status(http.StatusInternalServerError).JSON(fiber.Map{
+			"status":  http.StatusInternalServerError,
+			"message": fmt.Sprintf("Error retrieving data for id %s", id),
+		})
+	}
+	return c.JSON(nl)
+}
+
+func InsertLoginUser(c *fiber.Ctx) error {
+	db := config.Ulbimongoconn
+	var user inimodel.User
+	if err := c.BodyParser(&user); err != nil {
+		return c.Status(http.StatusInternalServerError).JSON(fiber.Map{
+			"status":  http.StatusInternalServerError,
+			"message": err.Error(),
+		})
+	}
+	insertedID, err := inimodul.InsertUser(db, "user",
+		user.UsernameM,
+		user.PasswordM)
+	if err != nil {
+		return c.Status(http.StatusInternalServerError).JSON(fiber.Map{
+			"status":  http.StatusInternalServerError,
+			"message": err.Error(),
+		})
+	}
+	return c.Status(http.StatusOK).JSON(fiber.Map{
+		"status":      http.StatusOK,
+		"message":     "Data berhasil disimpan.",
+		"inserted_id": insertedID,
+	})
+}
+
+func GetUserID(c *fiber.Ctx) error {
+	id := c.Params("id")
+	if id == "" {
+		return c.Status(http.StatusInternalServerError).JSON(fiber.Map{
+			"status":  http.StatusInternalServerError,
+			"message": "Wrong parameter",
+		})
+	}
+	objID, err := primitive.ObjectIDFromHex(id)
+	if err != nil {
+		return c.Status(http.StatusBadRequest).JSON(fiber.Map{
+			"status":  http.StatusBadRequest,
+			"message": "Invalid id parameter",
+		})
+	}
+	nl, err := inimodul.GetUserFromID(objID, config.Ulbimongoconn, "user")
+	if err != nil {
+		if errors.Is(err, mongo.ErrNoDocuments) {
+			return c.Status(http.StatusNotFound).JSON(fiber.Map{
+				"status":  http.StatusNotFound,
+				"message": fmt.Sprintf("No data found for id %s", id),
+			})
+		}
+		return c.Status(http.StatusInternalServerError).JSON(fiber.Map{
+			"status":  http.StatusInternalServerError,
+			"message": fmt.Sprintf("Error retrieving data for id %s", id),
+		})
+	}
+	return c.JSON(nl)
+}
+//login
+
 // InsertData godoc
 // @Summary Insert data presensi.
 // @Description Input data presensi.

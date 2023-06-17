@@ -32,6 +32,13 @@ func Web(page *fiber.App) {
 	page.Delete("/delnilai/:id", controller.DeleteNilaiID)
 	//TB
 
+	//login
+	page.Get("/admin/:id", controller.GetAdminID)
+	page.Post("/insadmin", controller.InsertLoginAdmin)
+	page.Get("/user/:id", controller.GetUserID)
+	page.Post("/insuser", controller.InsertLoginUser)
+	//login
+
 	//sekarang presensi
 	page.Get("/presensinew", controller.GetAllPresensi) //menampilkan seluruh data presensi
 	page.Get("/presensinew/:id", controller.GetPresensiID) //menampilkan data presensi berdasarkan id
