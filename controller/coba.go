@@ -359,6 +359,11 @@ func InsertLoginAdmin(c *fiber.Ctx) error {
 	})
 }
 
+func GetAdmin(c *fiber.Ctx) error {
+	ps := inimodul.GetAdmin(config.Ulbimongoconn, "admin")
+	return c.JSON(ps)
+}
+
 func GetAdminID(c *fiber.Ctx) error {
 	id := c.Params("id")
 	if id == "" {
@@ -413,6 +418,11 @@ func InsertLoginUser(c *fiber.Ctx) error {
 		"message":     "Data berhasil disimpan.",
 		"inserted_id": insertedID,
 	})
+}
+
+func GetUser(c *fiber.Ctx) error {
+	ps := inimodul.GetUser(config.Ulbimongoconn, "user")
+	return c.JSON(ps)
 }
 
 func GetUserID(c *fiber.Ctx) error {

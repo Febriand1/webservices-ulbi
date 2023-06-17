@@ -3,7 +3,7 @@ module github.com/Febriand1/webservices-ulbi
 go 1.20
 
 require (
-	github.com/Febriand1/Nilai v0.1.1
+	github.com/Febriand1/Nilai v0.1.2
 	github.com/aiteung/atdb v0.0.7
 	github.com/aiteung/musik v0.0.5
 	github.com/aiteung/presensi v0.0.34
