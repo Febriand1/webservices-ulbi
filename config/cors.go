@@ -33,6 +33,6 @@ var Cors = cors.Config{
 	AllowOrigins:     strings.Join(origins[:], ","),
 	AllowMethods:     "GET,HEAD,OPTIONS,POST,PUT,DELETE",
 	AllowHeaders:     "Origin, X-Requested-With, Content-Type, Accept, Authorization",
-	ExposeHeaders:    "Content-Length, Content-Type",
+	ExposeHeaders:    "Content-Length",
 	AllowCredentials: true,
 }
