@@ -349,18 +349,21 @@ func LoginAdmin(c *fiber.Ctx) error {
 			"status":  http.StatusInternalServerError,
 			"message": err.Error(),
 		})
-	} else if authenticated {
+	}
+
+	if authenticated {
 		return c.Status(http.StatusOK).JSON(fiber.Map{
 			"status":  http.StatusOK,
 			"message": "Login successful",
 		})
-	} else {
-		return c.Status(http.StatusUnauthorized).JSON(fiber.Map{
-			"status":  http.StatusUnauthorized,
-			"message": "Invalid credentials",
-		})
 	}
+	
+	return c.Status(http.StatusUnauthorized).JSON(fiber.Map{
+		"status":  http.StatusUnauthorized,
+		"message": "Invalid credentials",
+	})
 }
+
 
 
 
