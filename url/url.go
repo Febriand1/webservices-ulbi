@@ -30,6 +30,7 @@ func Web(page *fiber.App) {
 	page.Post("/insnilai", controller.InsertDataNilai)
 	page.Put("/updnilai/:id", controller.UpdateDataNilai)
 	page.Delete("/delnilai/:id", controller.DeleteNilaiID)
+	page.Get("/docsnilai/*", swagger.HandlerDefault)
 	//TB
 
 	//login

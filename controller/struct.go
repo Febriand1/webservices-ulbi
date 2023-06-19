@@ -1,47 +1,58 @@
 package controller
 
-import (
-	"go.mongodb.org/mongo-driver/bson/primitive"
-)
-
-type Karyawan struct {
-	// ID          primitive.ObjectID `bson:"_id,omitempty" json:"_id,omitempty" example:"123456789"`
-	Nama        string             `bson:"nama,omitempty" json:"nama,omitempty" example:"Tes Swagger"`
-	PhoneNumber string             `bson:"phone_number,omitempty" json:"phone_number,omitempty" example:"08123456789"`
-	Jabatan     string             `bson:"jabatan,omitempty" json:"jabatan,omitempty" example:"Anonymous"`
-	Jam_kerja   []JamKerja         `bson:"jam_kerja,omitempty" json:"jam_kerja,omitempty"`
-	Hari_kerja  []string           `bson:"hari_kerja,omitempty" json:"hari_kerja,omitempty" example:"Senin,Selasa,Rabu,Kamis,Jumat,Sabtu,Minggu"`
+type Mahasiswa struct {
+	// ID           primitive.ObjectID `bson:"_id,omitempty" json:"_id,omitempty" example:"123456789" `
+	Nama         string `bson:"nama,omitempty" json:"nama,omitempty" example:"Tes Swagger"`
+	NPM          int    `bson:"npm,omitempty" json:"npm,omitempty" example:"1234567"`
+	Phone_Number string `bson:"phonenumber,omitempty" json:"phonenumber,omitempty" example:"08123456789"`
 }
 
-type JamKerja struct {
-	Durasi     int      `bson:"durasi,omitempty" json:"durasi,omitempty" example:"8"`
-	Jam_masuk  string   `bson:"jam_masuk,omitempty" json:"jam_masuk,omitempty" example:"08:00"`
-	Jam_keluar string   `bson:"jam_keluar,omitempty" json:"jam_keluar,omitempty" example:"16:00"`
-	Gmt        int      `bson:"gmt,omitempty" json:"gmt,omitempty" example:"7"`
+type Matakuliah struct {
+	// ID       primitive.ObjectID `bson:"_id,omitempty" json:"_id,omitempty" example:"123456789"`
+	Nama_MK  string `bson:"nama_mk,omitempty" json:"nama_mk,omitempty" example:"Pemrograman III"`
+	SKS      int    `bson:"sks,omitempty" json:"sks,omitempty" example:"1"`
+	Jadwal   Waktu  `bson:"jadwal,omitempty" json:"jadwal,omitempty"`
+	Pengampu Dosen  `bson:"pengampu,omitempty" json:"pengampu,omitempty"`
+}
+
+type Waktu struct {
+	Jam_Masuk string `bson:"jammasuk,omitempty" json:"jammasuk,omitempty" example:"08:00"`
+	Jam_Keluar string   `bson:"jamkeluar,omitempty" json:"jamkeluar,omitempty" example:"16:00"`
 	Hari       []string `bson:"hari,omitempty" json:"hari,omitempty" example:"Senin,Selasa,Rabu,Kamis,Jumat,Sabtu,Minggu"`
-	Shift      int      `bson:"shift,omitempty" json:"shift,omitempty" example:"2"`
-	Piket_tim  string   `bson:"piket_tim,omitempty" json:"piket_tim,omitempty" example:"Piket Z"`
+}
+
+type Dosen struct {
+	// ID            primitive.ObjectID `bson:"_id,omitempty" json:"_id,omitempty"`
+	Nama_Dosen    string `bson:"namadosen,omitempty" json:"namadosen,omitempty" example:"Rizkyria"`
+	NIK           string `bson:"nik,omitempty" json:"nik,omitempty" example:"123.456.789"`
+	Phone_NumberD string `bson:"phonenumberd,omitempty" json:"phonenumberd,omitempty" example:"089876543210"`
+}
+
+type Tugas struct {
+	Tugas1 int `bson:"tugas1,omitempty" json:"tugas1,omitempty" example:"123"`
+	Tugas2 int `bson:"tugas2,omitempty" json:"tugas2,omitempty" example:"123"`
+	Tugas3 int `bson:"tugas3,omitempty" json:"tugas3,omitempty" example:"123"`
+	Tugas4 int `bson:"tugas4,omitempty" json:"tugas4,omitempty" example:"123"`
+	Tugas5 int `bson:"tugas5,omitempty" json:"tugas5,omitempty" example:"123"`
+}
+
+type Nilai struct {
+	// ID        primitive.ObjectID `bson:"_id,omitempty" json:"_id,omitempty"`
+	All_Tugas Tugas      `bson:"alltugas,omitempty" json:"alltugas,omitempty"`
+	UTS       int        `bson:"uts,omitempty" json:"uts,omitempty" example:"123"`
+	UAS       int        `bson:"uas,omitempty" json:"uas,omitempty" example:"123"`
+	Grade     Grade      `bson:"grade,omitempty" json:"grade,omitempty"`
+	Kategori  Matakuliah `bson:"kategori,omitempty" json:"kategori,omitempty"`
+	Absensi   Presensi   `bson:"absensi,omitempty" json:"absensi,omitempty"`
+}
+
+type Grade struct {
+	Nama_Grade string `bson:"namagrade,omitempty" json:"namagrade,omitempty" example:"A"`
+	Skala      string `bson:"skala,omitempty" json:"skala,omitempty" example:"75.87"`
 }
 
 type Presensi struct {
-	// ID           primitive.ObjectID `bson:"_id,omitempty" json:"_id,omitempty" example:"123456789"`
-	Longitude    float64            `bson:"longitude,omitempty" json:"longitude,omitempty" example:"123.11"`
-	Latitude     float64            `bson:"latitude,omitempty" json:"latitude,omitempty" example:"123.11"`
-	Location     string             `bson:"location,omitempty" json:"location,omitempty" example:"Bandung"`
-	Phone_number string             `bson:"phone_number,omitempty" json:"phone_number,omitempty" example:"08123456789"`
-	//Datetime     primitive.DateTime `bson:"datetime,omitempty" json:"datetime,omitempty"`
-	Checkin string   `bson:"checkin,omitempty" json:"checkin,omitempty" example:"MASUK"`
-	Biodata Karyawan `bson:"biodata,omitempty" json:"biodata,omitempty"`
-}
-
-type Lokasi struct {
-	ID       primitive.ObjectID `bson:"_id,omitempty" json:"_id,omitempty"`
-	Nama     string             `bson:"nama,omitempty" json:"nama,omitempty"`
-	Batas    Geometry           `bson:"batas,omitempty" json:"batas,omitempty"`
-	Kategori string             `bson:"kategori,omitempty" json:"kategori,omitempty"`
-}
-
-type Geometry struct {
-	Type        string      `json:"type" bson:"type"`
-	Coordinates interface{} `json:"coordinates" bson:"coordinates"`
+	// ID               primitive.ObjectID `bson:"_id,omitempty" json:"_id,omitempty"`
+	Jumlah_Kehadiran int       `bson:"jumlahkehadiran,omitempty" json:"jumlahkehadiran,omitempty" example:"1"`
+	Biodata          Mahasiswa `bson:"biodata,omitempty" json:"biodata,omitempty"`
 }

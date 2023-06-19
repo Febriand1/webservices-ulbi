@@ -170,11 +170,31 @@ func InsertDosen(c *fiber.Ctx) error {
 }
 
 //TB
+// GetAllNilai godoc
+// @Summary Get All Data Nilai.
+// @Description Mengambil semua data nilai.
+// @Tags Nilai
+// @Accept json
+// @Produce json
+// @Success 200 {object} Nilai
+// @Router /nilai [get]
 func GetAllNilai(c *fiber.Ctx) error {
 	ps := inimodul.GetAllNilai(config.Ulbimongoconn, "nilai")
 	return c.JSON(ps)
 }
 
+// GetNilaiID godoc
+// @Summary Get By ID Data Nilai.
+// @Description Ambil per ID data nilai.
+// @Tags Nilai
+// @Accept json
+// @Produce json
+// @Param id path string true "Masukan ID"
+// @Success 200 {object} Nilai
+// @Failure 400
+// @Failure 404
+// @Failure 500
+// @Router /nilai/{id} [get]
 func GetNilaiID(c *fiber.Ctx) error {
 	id := c.Params("id")
 	if id == "" {
@@ -226,6 +246,17 @@ func GetNilaiID(c *fiber.Ctx) error {
 // 	})
 // }
 
+// InsertData godoc
+// @Summary Insert data nilai.
+// @Description Input data nilai.
+// @Tags Nilai
+// @Accept json
+// @Produce json
+// @Param request body Nilai true "Payload Body [RAW]"
+// @Success 200 {object} Nilai
+// @Failure 400
+// @Failure 500
+// @Router /insnilai [post]
 func InsertDataNilai(c *fiber.Ctx) error {
 	db := config.Ulbimongoconn
 	var nilai inimodel.Nilai
@@ -255,6 +286,18 @@ func InsertDataNilai(c *fiber.Ctx) error {
 	})
 }
 
+// UpdateData godoc
+// @Summary Update data nilai.
+// @Description Ubah data nilai.
+// @Tags Nilai
+// @Accept json
+// @Produce json
+// @Param id path string true "Masukan ID"
+// @Param request body Nilai true "Payload Body [RAW]"
+// @Success 200 {object} Nilai
+// @Failure 400
+// @Failure 500
+// @Router /updnilai/{id} [put]
 func UpdateDataNilai(c *fiber.Ctx) error {
 	db := config.Ulbimongoconn
 
@@ -301,6 +344,17 @@ func UpdateDataNilai(c *fiber.Ctx) error {
 	})
 }
 
+// DeleteNilaiByID godoc
+// @Summary Delete data nilai.
+// @Description Hapus data nilai.
+// @Tags Nilai
+// @Accept json
+// @Produce json
+// @Param id path string true "Masukan ID"
+// @Success 200
+// @Failure 400
+// @Failure 500
+// @Router /delnilai/{id} [delete]
 func DeleteNilaiID(c *fiber.Ctx) error {
 	id := c.Params("id")
 	if id == "" {
