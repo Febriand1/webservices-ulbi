@@ -10,6 +10,7 @@ require (
 	github.com/gofiber/fiber/v2 v2.46.0
 	github.com/gofiber/swagger v0.1.12
 	github.com/gofiber/websocket/v2 v2.1.4
+	github.com/golang-jwt/jwt/v5 v5.0.0
 	github.com/indrariksa/be_presensi v0.0.12
 	github.com/swaggo/swag v1.16.1
 	github.com/whatsauth/whatsauth v0.1.89

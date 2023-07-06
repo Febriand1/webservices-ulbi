@@ -4,12 +4,14 @@ import (
 	"errors"
 	"fmt"
 	"net/http"
+	"time"
 
 	inimodel "github.com/Febriand1/Nilai/Model"
 	inimodul "github.com/Febriand1/Nilai/Module"
 	"github.com/Febriand1/webservices-ulbi/config"
 	cek "github.com/aiteung/presensi"
 	"github.com/gofiber/fiber/v2"
+	"github.com/golang-jwt/jwt/v5"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 	"go.mongodb.org/mongo-driver/mongo"
 
@@ -387,6 +389,8 @@ func DeleteNilaiID(c *fiber.Ctx) error {
 }
 //TB
 
+var jwtSecretKey = []byte("secretKey")
+
 func LoginAdmin(c *fiber.Ctx) error {
 	db := config.Ulbimongoconn
 	var admin inimodel.Admin
@@ -406,17 +410,34 @@ func LoginAdmin(c *fiber.Ctx) error {
 	}
 
 	if authenticated {
+		// Membuat token JWT
+		token := jwt.New(jwt.SigningMethodHS256)
+		claims := token.Claims.(jwt.MapClaims)
+		claims["username"] = admin.Username
+		claims["exp"] = time.Now().Add(time.Hour * 24).Unix()
+
+		// Menandatangani token dengan secret key
+		tokenString, err := token.SignedString(jwtSecretKey)
+		if err != nil {
+			return c.Status(http.StatusInternalServerError).JSON(fiber.Map{
+				"status":  http.StatusInternalServerError,
+				"message": err.Error(),
+			})
+		}
+
 		return c.Status(http.StatusOK).JSON(fiber.Map{
 			"status":  http.StatusOK,
 			"message": "Login successful",
+			"token":   tokenString,
 		})
 	}
-	
+
 	return c.Status(http.StatusUnauthorized).JSON(fiber.Map{
 		"status":  http.StatusUnauthorized,
 		"message": "Invalid credentials",
 	})
 }
+
 
 
 
