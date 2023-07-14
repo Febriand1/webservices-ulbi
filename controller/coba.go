@@ -450,6 +450,29 @@ func LoginAdmin(c *fiber.Ctx) error {
 	})
 }
 
+func Authenticated(c *fiber.Ctx) error {
+	tokenString := c.Get("Authorization") // Assuming the token is sent in the Authorization header
+
+	// Verify the token
+	token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
+		// Check the signing method
+		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
+			return nil, fmt.Errorf("invalid signing method")
+		}
+		return jwtSecretKey, nil
+	})
+
+	if err != nil || !token.Valid {
+		return c.Status(http.StatusUnauthorized).JSON(fiber.Map{
+			"status":  http.StatusUnauthorized,
+			"message": "Invalid or expired token",
+		})
+	}
+
+	// Token is valid, proceed with the request
+	return c.Next()
+}
+
 
 
 

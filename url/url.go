@@ -40,6 +40,7 @@ func Web(page *fiber.App) {
 
 	//login
 	page.Post("/loginadmin", controller.LoginAdmin)
+	page.Post("/auth", controller.Authenticated)
 	//login
 
 
