@@ -24,6 +24,11 @@ func Web(page *fiber.App) {
 	page.Post("/insmatakuliah", controller.InsertMatkul)
 	page.Post("/insdosen", controller.InsertDosen)
 
+
+	page.Get("/mhs", controller.GetAllMahasiswa)
+	page.Get("/matkul", controller.GetAllMatakuliah)
+
+
 	//TB
 	page.Get("/nilai", controller.GetAllNilai)
 	page.Get("/nilai/:id", controller.GetNilaiID)

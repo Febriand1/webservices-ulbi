@@ -171,6 +171,18 @@ func InsertDosen(c *fiber.Ctx) error {
 	})
 }
 
+
+
+func GetAllMahasiswa(c *fiber.Ctx) error {
+	ps := inimodul.GetMahasiswa(config.Ulbimongoconn, "mahasiswa")
+	return c.JSON(ps)
+}
+
+func GetAllMatakuliah(c *fiber.Ctx) error {
+	ps := inimodul.GetMatakuliah(config.Ulbimongoconn, "matakuliah")
+	return c.JSON(ps)
+}
+
 //TB
 // GetAllNilai godoc
 // @Summary Get All Data Nilai.
