@@ -491,7 +491,7 @@ func Authenticated(c *fiber.Ctx) error {
 		// return c.Next()
 		return c.Status(http.StatusOK).JSON(fiber.Map{
 		"status":      http.StatusOK,
-		"email":      claims["email"],
+		"username":      claims["username"],
 	})
 	}
 
