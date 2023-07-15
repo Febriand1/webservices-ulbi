@@ -7,6 +7,7 @@ import (
 	"time"
 
 	inimodel "github.com/Febriand1/Nilai/Model"
+	model "github.com/Febriand1/Nilai/Model"
 	inimodul "github.com/Febriand1/Nilai/Module"
 	"github.com/Febriand1/webservices-ulbi/config"
 	cek "github.com/aiteung/presensi"
@@ -451,28 +452,53 @@ func LoginAdmin(c *fiber.Ctx) error {
 }
 
 func Authenticated(c *fiber.Ctx) error {
-	tokenString := c.Get("Authorization") // Assuming the token is sent in the Authorization header
+	// tokenString := c.Get("Authorization")
 
-	// Verify the token
-	token, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
-		// Check the signing method
-		if _, ok := token.Method.(*jwt.SigningMethodHMAC); !ok {
-			return nil, fmt.Errorf("invalid signing method")
-		}
-		return jwtSecretKey, nil
-	})
-
-	if err != nil || !token.Valid {
-		return c.Status(http.StatusUnauthorized).JSON(fiber.Map{
-			"status":  http.StatusUnauthorized,
-			"message": "Invalid or expired token",
+	var token model.Token
+	if err := c.BodyParser(&token); err != nil {
+		return c.Status(http.StatusInternalServerError).JSON(fiber.Map{
+			"status":  http.StatusInternalServerError,
+			"message": err.Error(),
+		})
+	}
+    tkn := token.Token_String
+	// Check if token exists
+	if tkn == "" {
+		return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{
+			"message": "Unauthorized",
 		})
 	}
 
-	// Token is valid, proceed with the request
-	return c.Next()
-}
+	// Parse token
+	initoken, err := jwt.Parse(tkn, func(initoken *jwt.Token) (interface{}, error) {
+		// Validate the algorithm
+		if _, ok := initoken.Method.(*jwt.SigningMethodHMAC); !ok {
+			return nil, jwt.ErrSignatureInvalid
+		}
 
+		return jwtSecretKey, nil
+	})
+
+	if err != nil {
+		return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{
+			"message": "Invalid token",
+		})
+	}
+
+	// Validate token claims
+	if claims, ok := initoken.Claims.(jwt.MapClaims); ok && initoken.Valid {
+		// c.Locals("username", claims["username"])
+		// return c.Next()
+		return c.Status(http.StatusOK).JSON(fiber.Map{
+		"status":      http.StatusOK,
+		"email":      claims["email"],
+	})
+	}
+
+	return c.Status(fiber.StatusUnauthorized).JSON(fiber.Map{
+		"message": "Invalid token",
+	})
+}
 
 
 
