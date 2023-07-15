@@ -7,7 +7,6 @@ import (
 	"time"
 
 	inimodel "github.com/Febriand1/Nilai/Model"
-	model "github.com/Febriand1/Nilai/Model"
 	inimodul "github.com/Febriand1/Nilai/Module"
 	"github.com/Febriand1/webservices-ulbi/config"
 	cek "github.com/aiteung/presensi"
@@ -454,7 +453,7 @@ func LoginAdmin(c *fiber.Ctx) error {
 func Authenticated(c *fiber.Ctx) error {
 	// tokenString := c.Get("Authorization")
 
-	var token model.Token
+	var token inimodel.Token
 	if err := c.BodyParser(&token); err != nil {
 		return c.Status(http.StatusInternalServerError).JSON(fiber.Map{
 			"status":  http.StatusInternalServerError,
