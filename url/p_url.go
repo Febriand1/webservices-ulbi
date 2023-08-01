@@ -7,7 +7,6 @@ import (
 )
 
 func Webs(page *fiber.App) {
-
 	//percobaan
 	page.Get("/", controller.Homes)
 
