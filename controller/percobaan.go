@@ -15,6 +15,14 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
+func Homes(c *fiber.Ctx) error {
+	return c.Status(fiber.StatusOK).JSON(fiber.Map{
+		"github_repo": "https://github.com/Febriand1/webservices-ulbi",
+		"message":     "You are at the root endpoint 😉",
+		"success":     true,
+	})
+}
+
 // get
 func GetMembers(c *fiber.Ctx) error {
 	ps := inimodul.GetMembers(config.Ulbimongoconn, "members")

@@ -4,15 +4,13 @@ import (
 	"github.com/Febriand1/webservices-ulbi/controller"
 
 	"github.com/gofiber/fiber/v2"
-	"github.com/gofiber/websocket/v2"
 )
 
 func Webs(page *fiber.App) {
-	page.Post("/api/whatsauth/request", controller.PostWhatsAuthRequest)  //API from user whatsapp message from iteung gowa
-	page.Get("/ws/whatsauth/qr", websocket.New(controller.WsWhatsAuthQR)) //websocket whatsauth
-	page.Get("/", controller.Home)                                        //ujicoba panggil package musik
 
 	//percobaan
+	page.Get("/", controller.Homes)
+
 	page.Get("/members", controller.GetMembers)
 	page.Get("/customers", controller.GetCustomers)
 	page.Get("/incomes", controller.GetIncomes)
