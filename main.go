@@ -27,7 +27,7 @@ import (
 // @contact.url https://github.com/Febriand1
 // @contact.email 1214039@std.ulbi.ac.id
 
-// @host ws-nilai.herokuapp.com
+// @host percobaan.herokuapp.com
 // @BasePath /
 // @schemes https http
 
