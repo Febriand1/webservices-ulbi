@@ -168,8 +168,6 @@ func InsertDosen(c *fiber.Ctx) error {
 	})
 }
 
-
-
 func GetAllMahasiswa(c *fiber.Ctx) error {
 	ps := inimodul.GetMahasiswa(config.Ulbimongoconn, "mahasiswa")
 	return c.JSON(ps)
