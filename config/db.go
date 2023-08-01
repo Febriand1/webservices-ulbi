@@ -18,11 +18,6 @@ var DBUlbimariainfo = atdb.DBInfo{
 	DBName:   "x9a1mf29bax80ws2",
 }
 
-// var DBUlbimariainfo2 = atdb.DBInfo{
-// 	DBString: MariaStringAkademik,
-// 	DBName:   "x9a1mf29bax80ws2",
-// }
-
 var DBUlbimongoinfo = atdb.DBInfo{
 	DBString: MongoString,
 	DBName:   "db_penilaian",
