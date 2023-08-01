@@ -25,17 +25,17 @@ func Homes(c *fiber.Ctx) error {
 
 // get
 func GetMembers(c *fiber.Ctx) error {
-	ps := inimodul.GetMembers(config.Ulbimongoconn, "members")
+	ps := inimodul.GetMembers(config.Ulbimongoconn2, "members")
 	return c.JSON(ps)
 }
 
 func GetCustomers(c *fiber.Ctx) error {
-	ps := inimodul.GetCustomers(config.Ulbimongoconn, "customers")
+	ps := inimodul.GetCustomers(config.Ulbimongoconn2, "customers")
 	return c.JSON(ps)
 }
 
 func GetIncomes(c *fiber.Ctx) error {
-	ps := inimodul.GetIncomes(config.Ulbimongoconn, "incomes")
+	ps := inimodul.GetIncomes(config.Ulbimongoconn2, "incomes")
 	return c.JSON(ps)
 }
 
