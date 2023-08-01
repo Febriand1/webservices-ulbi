@@ -32,7 +32,6 @@ func GetAllPresensi(c *fiber.Ctx) error {
 	return c.JSON(ps)
 }
 
-
 // GetPresensiID godoc
 // @Summary Get By ID Data Presensi.
 // @Description Ambil per ID data presensi.
