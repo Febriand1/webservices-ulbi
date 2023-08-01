@@ -75,8 +75,6 @@ func GetPresensiID(c *fiber.Ctx) error {
 	return c.JSON(ps)
 }
 
-
-
 //latihan kemaren
 
 func Home(c *fiber.Ctx) error {
