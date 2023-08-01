@@ -35,8 +35,6 @@ var DBUlbimongoinfo2 = atdb.DBInfo{
 
 var Ulbimariaconn = atdb.MariaConnect(DBUlbimariainfo)
 
-// var Ulbimariaconn2 = atdb.MariaConnect(DBUlbimariainfo2)
-
 var Ulbimongoconn = atdb.MongoConnect(DBUlbimongoinfo)
 
 var Ulbimongoconn1 = atdb.MongoConnect(DBUlbimongoinfo1)
